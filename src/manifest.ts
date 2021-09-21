@@ -24,10 +24,11 @@ export async function prepareManifests (ctx: ViteBuildContext) {
     ? (await readFile(customAppTemplateFile, 'utf-8'))
     : DEFAULT_APP_TEMPLATE
 
+  const routerBase = ctx.nuxt.options.router.base
   const DEV_TEMPLATE = APP_TEMPLATE
     .replace(
       '</body>',
-      '<script type="module" src="/@vite/client"></script><script type="module" src="/_nuxt/client.js"></script></body>'
+      `<script type="module" src="${routerBase}/@vite/client"></script><script type="module" src="${routerBase}/_nuxt/client.js"></script></body>`
     )
   const SPA_TEMPLATE = ctx.nuxt.options.dev ? DEV_TEMPLATE : APP_TEMPLATE
   const SSR_TEMPLATE = ctx.nuxt.options.dev ? DEV_TEMPLATE : APP_TEMPLATE
